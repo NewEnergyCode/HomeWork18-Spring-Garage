@@ -63,9 +63,8 @@ public class UserController {
         return garageService.deleteUser(usersId);
     }
     @DeleteMapping("/delUsersCar/{usersId}")
-    public Cars deleteUser(@PathVariable Integer usersId,
+    public Cars deleteUsersCar(@PathVariable Integer usersId,
                             @RequestBody Integer carsId) {
         return garageService.deleteUsersCar(usersId, carsId);
     }
-
-}
+ }
