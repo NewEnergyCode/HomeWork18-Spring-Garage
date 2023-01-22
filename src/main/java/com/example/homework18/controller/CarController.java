@@ -1,15 +1,10 @@
 package com.example.homework18.controller;
 
 import com.example.homework18.model.Cars;
-import com.example.homework18.model.Users;
 import com.example.homework18.service.GarageService;
-import com.example.homework18.service.IdGenerator;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -34,18 +29,20 @@ public class CarController {
 
     }
 
-    @PutMapping()
-    public Cars creatCar(@RequestBody Cars car) {
-        return garageService.creatCar(car);
+    @PutMapping("/{id}")
+    public void creatCar(@RequestBody Cars car, @PathVariable Integer id) {
+        this.garageService.creatCar(car, id);
     }
 
-    @PostMapping("/{id}")
-    public Cars postCar(@PathVariable Integer id,
-                          @RequestBody Cars car) {
-        return garageService.postCar(id, car);
+    @PostMapping("/{car_id}/{user_id}")
+    public void postCar(@PathVariable Integer car_id,
+                        @PathVariable Integer user_id,
+                        @RequestBody Cars car) {
+        garageService.postCar(car_id, user_id, car);
     }
+
     @DeleteMapping("/{carsId}")
-    public Cars deleteCar(@PathVariable Integer carsId) {
-                return garageService.deleteCar(carsId);
+    public void deleteCar(@PathVariable Integer carsId) {
+        garageService.deleteCar(carsId);
     }
 }
