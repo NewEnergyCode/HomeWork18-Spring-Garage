@@ -9,6 +9,7 @@ import org.apache.catalina.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.plugins.MockMaker;
@@ -24,6 +25,8 @@ import static org.mockito.ArgumentMatchers.anyInt;
 
 @ExtendWith(MockitoExtension.class)
 public class GarageServiceTests {
+    @Mock
+    Cars car;
     GarageRepository garageRepository = Mockito.mock(GarageRepository.class);
 
     @Test
@@ -86,7 +89,6 @@ public class GarageServiceTests {
     @Test
     public void getAllCarsTest() {
         GarageService garageService = new GarageService(garageRepository);
-        Cars car = Mockito.mock(Cars.class);
         List<Cars> carsList = new ArrayList<>();
         carsList.add(car);
         Mockito.when(garageRepository.getAllCars()).thenReturn(carsList);
@@ -94,38 +96,37 @@ public class GarageServiceTests {
     }
 
     @Test
-    public void getCarTest(){
+    public void getCarTest() {
 
         GarageService garageService = new GarageService(garageRepository);
-        Cars car = Mockito.mock(Cars.class);
+
         Mockito.when(garageRepository.getCar(anyInt())).thenReturn(car);
-        Assertions.assertEquals(car,garageService.getCar(1));
+        Assertions.assertEquals(car, garageService.getCar(1));
     }
 
     @Test
-    public void postCarTest(){
+    public void postCarTest() {
         GarageService garageService = new GarageService(garageRepository);
-        Cars car = Mockito.mock(Cars.class);
-        garageService.postCar(1,1,car);
-        Mockito.verify(garageRepository).postCar(1,1,car);
 
+        garageService.postCar(1, 1, car);
+        Mockito.verify(garageRepository).postCar(1, 1, car);
 
-
-    }
-
-    @Test
-    public void creatCarTest(){
-        GarageService garageService = new GarageService(garageRepository);
-        Cars car = Mockito.mock(Cars.class);
-        garageService.creatCar(car,1);
-        Mockito.verify(garageRepository).creatCar(car,1);
 
     }
 
     @Test
-    public void deleteCarTest(){
+    public void creatCarTest() {
         GarageService garageService = new GarageService(garageRepository);
-        Cars car = Mockito.mock(Cars.class);
+
+        garageService.creatCar(car, 1);
+        Mockito.verify(garageRepository).creatCar(car, 1);
+
+    }
+
+    @Test
+    public void deleteCarTest() {
+        GarageService garageService = new GarageService(garageRepository);
+
         garageService.deleteCar(1);
         Mockito.verify(garageRepository).deleteCar(1);
 
