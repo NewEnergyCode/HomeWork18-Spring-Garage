@@ -11,6 +11,7 @@ import java.util.Map;
 public class Users {
     private Integer userId;
     private String name;
-    private List<Cars> garage;
+
+    private String surname;
 
 }
