@@ -40,15 +40,15 @@ public class GarageRepositoryImplement implements GarageRepository {
 
     @Override
     public Cars getCar(Integer carsId) {
-            String sql = "SELECT * FROM cars WHERE car_id = ?";
-            return jdbcTemplate.queryForObject(sql, new Object[] { carsId }, new CarMapper());
+        String sql = "SELECT * FROM cars WHERE car_id = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{carsId}, new CarMapper());
 //        return jdbcTemplate.queryForObject("Select * from cars" + carsId, new CarMapper());
     }
 
     @Override
-    public void creatCar(Cars car, Integer id) {
+    public Cars creatCar(Cars car, Integer id) {
         jdbcTemplate.update(addCar, car.getBrand(), car.getModel(), id);
-
+        return car;
     }
 
     @Override
@@ -77,8 +77,9 @@ public class GarageRepositoryImplement implements GarageRepository {
     }
 
     @Override
-    public void creatUser(Users user) {
+    public Users creatUser(Users user) {
         jdbcTemplate.update(addUser, user.getName(), user.getSurname());
+        return user;
     }
 
     @Override

@@ -3,11 +3,8 @@ package com.example.homework18.service;
 import com.example.homework18.model.Cars;
 import com.example.homework18.model.Users;
 import com.example.homework18.repository.dao.GarageRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,8 +24,8 @@ public class GarageService {
         return this.garageRepository.getUser(usersId);
     }
 
-    public void creatUser(Users user) {
-        this.garageRepository.creatUser(user);
+    public Users creatUser(Users user) {
+        return this.garageRepository.creatUser(user);
     }
 
     public void postUser(Integer userId, Users user) {
@@ -53,8 +50,9 @@ public class GarageService {
 
     }
 
-    public void creatCar(Cars car, Integer id) {
+    public Cars creatCar(Cars car, Integer id) {
         this.garageRepository.creatCar(car, id);
+        return car;
     }
 
     public void deleteCar(Integer carsId) {

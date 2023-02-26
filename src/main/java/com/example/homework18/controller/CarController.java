@@ -30,8 +30,8 @@ public class CarController {
     }
 
     @PutMapping("/{id}")
-    public void creatCar(@RequestBody Cars car, @PathVariable Integer id) {
-        this.garageService.creatCar(car, id);
+    public Cars creatCar(@RequestBody Cars car, @PathVariable Integer id) {
+       return this.garageService.creatCar(car, id);
     }
 
     @PostMapping("/{car_id}/{user_id}")
