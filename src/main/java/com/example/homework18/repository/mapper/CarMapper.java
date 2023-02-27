@@ -13,9 +13,10 @@ public class CarMapper implements RowMapper<Cars> {
     @Override
     public Cars mapRow(ResultSet rows, int rowNum) throws SQLException {
         return Cars.builder()
-                .carId(rows.getInt("user_id"))
+                .carId(rows.getInt("car_id"))
                 .brand(rows.getString("brand"))
                 .model(rows.getString("model"))
+                .userId(rows.getInt("user_id"))
                 .build();
     }
 

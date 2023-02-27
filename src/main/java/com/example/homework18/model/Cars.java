@@ -13,5 +13,6 @@ public class Cars {
     private Integer carId;
     private String brand;
     private String model;
+    private Integer userId;
 
 }

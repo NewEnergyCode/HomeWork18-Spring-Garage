@@ -31,8 +31,8 @@ public class UserController {
     }
 
     @PutMapping()
-    public void creatUser(@RequestBody Users user) {
-        garageService.creatUser(user);
+    public Users creatUser(@RequestBody Users user) {
+      return garageService.creatUser(user);
     }
 
     @PostMapping("/{id}")
