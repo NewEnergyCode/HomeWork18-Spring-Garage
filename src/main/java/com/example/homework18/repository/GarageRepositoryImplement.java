@@ -7,11 +7,10 @@ import com.example.homework18.repository.mapper.CarMapper;
 import com.example.homework18.repository.mapper.UserMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
 @Repository
-public class GarageRepositoryImplement implements GarageRepository {
+public class GarageRepositoryImplement implements GarageRepository{
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -73,7 +72,7 @@ public class GarageRepositoryImplement implements GarageRepository {
 
     @Override
     public Users getUser(Integer usersId) {
-        return jdbcTemplate.queryForObject("Select * from users" + usersId, new UserMapper());
+        return jdbcTemplate.queryForObject("Select * from users WHERE user_id =?", new Object[]{usersId},new UserMapper());
     }
 
     @Override
