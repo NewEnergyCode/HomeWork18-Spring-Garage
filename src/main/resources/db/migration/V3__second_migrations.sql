@@ -1,4 +1,4 @@
-CREATE TABLE "Car_v2"
+CREATE TABLE "Car_v3"
 (
     carid  INTEGER,
     brand  text,
@@ -6,7 +6,7 @@ CREATE TABLE "Car_v2"
     userid INTEGER
 );
 
-INSERT INTO "Car_v2" (carid, brand, model, userid)
+INSERT INTO "Car_v3" (carid, brand, model, userid)
 SELECT carid, brand, model, userid
 FROM "Cars";
 
