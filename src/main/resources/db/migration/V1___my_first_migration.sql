@@ -1,4 +1,4 @@
-CREATE TABLE "Car"
+CREATE TABLE "Cars"
 (
     carid  INTEGER,
     brand  text,
