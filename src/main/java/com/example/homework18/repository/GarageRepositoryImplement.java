@@ -7,22 +7,23 @@ import com.example.homework18.repository.mapper.CarMapper;
 import com.example.homework18.repository.mapper.UserMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
 @Repository
-public class GarageRepositoryImplement implements GarageRepository{
+public class GarageRepositoryImplement implements GarageRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
     private static final String addCar =
             """
-                    INSERT INTO cars(
-                    brand, model, user_id) 
+                    INSERT INTO public."Cars"(
+                    brand, model, userid) 
                     VALUES (?, ?, ?)
                     """;
     private static final String addUser =
             """
-                    INSERT INTO users(
+                    INSERT INTO public."Users"(
                     name, surname) 
                     VALUES (?, ?)
                     """;
@@ -34,14 +35,18 @@ public class GarageRepositoryImplement implements GarageRepository{
 
     @Override
     public List<Cars> getAllCars() {
-        return jdbcTemplate.query("Select * from cars", new CarMapper());
+        return jdbcTemplate.query("""
+                Select * from public."Cars"
+                """, new CarMapper());
     }
 
     @Override
     public Cars getCar(Integer carsId) {
-        String sql = "SELECT * FROM cars WHERE car_id = ?";
+        String sql = """
+                SELECT * FROM public."Cars" WHERE carid =?
+                """;
         return jdbcTemplate.queryForObject(sql, new Object[]{carsId}, new CarMapper());
-//        return jdbcTemplate.queryForObject("Select * from cars" + carsId, new CarMapper());
+
     }
 
     @Override
@@ -52,27 +57,34 @@ public class GarageRepositoryImplement implements GarageRepository{
 
     @Override
     public void postCar(Integer carId, Integer userId, Cars car) {
-        jdbcTemplate.update("UPDATE cars SET "
-                + "brand ='" + car.getBrand()
+        jdbcTemplate.update("""
+                UPDATE public."Cars" SET """
+                + " brand ='" + car.getBrand()
                 + "', model ='" + car.getModel()
-                + "', user_id ='" + userId
-                + "' WHERE car_id ='"
-                + carId + "';");
+                + "', userid =" + userId
+                + " WHERE carid ="
+                + carId + ";");
     }
 
     @Override
     public void deleteCar(Integer carsId) {
-        jdbcTemplate.update("DELETE FROM cars WHERE car_id = '" + carsId + "';");
+        jdbcTemplate.update("""
+                DELETE FROM public."Cars" WHERE carid = ?
+                """ + carsId + ";");
     }
 
     @Override
     public List<Users> getAllUsers() {
-        return jdbcTemplate.query("Select * from users", new UserMapper());
+        return jdbcTemplate.query("""
+                Select * from public."Users"
+                """, new UserMapper());
     }
 
     @Override
     public Users getUser(Integer usersId) {
-        return jdbcTemplate.queryForObject("Select * from users WHERE user_id =?", new Object[]{usersId},new UserMapper());
+        return jdbcTemplate.queryForObject("""
+                Select * from public."Users" WHERE userid =?
+                """, new Object[]{usersId}, new UserMapper());
     }
 
     @Override
@@ -83,15 +95,18 @@ public class GarageRepositoryImplement implements GarageRepository{
 
     @Override
     public void postUser(Integer id, Users user) {
-        jdbcTemplate.update("UPDATE users SET name ='"
+        jdbcTemplate.update("""
+                UPDATE public."Users" SET name ='"""
                 + user.getName() + "', surname ='"
-                + user.getSurname() + "' WHERE user_id ='"
+                + user.getSurname() + "' WHERE userid ='"
                 + id + "';");
     }
 
     @Override
     public void deleteUser(Integer usersId) {
-        jdbcTemplate.update("DELETE FROM users WHERE user_id = '" + usersId + "';");
+        jdbcTemplate.update("""
+                DELETE FROM public."Users" WHERE userid = '"""
+                + usersId + "';");
     }
 
 
